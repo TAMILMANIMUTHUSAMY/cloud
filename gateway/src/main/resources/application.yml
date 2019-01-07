@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: GATEWAY
+  profiles:
+    active: dev
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+zuul:
+  routes:
+    employees:
+      url: http://localhost:8040/employees
+
+#zuul:
+#  routes:
+#    employees:
+#      serviceId: EMPLOYEE
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8090/eureka/
+
+logging:
+  level:
+    org.springframework: debug
