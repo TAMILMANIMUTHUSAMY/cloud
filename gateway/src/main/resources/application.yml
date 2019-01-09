@@ -12,20 +12,23 @@ management:
     web:
       exposure:
         include: "*"
-zuul:
-  routes:
-    employees:
-      url: http://localhost:8040/employees
-
 #zuul:
 #  routes:
 #    employees:
-#      serviceId: EMPLOYEE
+#      url: http://localhost:8040/employees
+
+zuul:
+  routes:
+    employees:
+      serviceId: EMPLOYEE
+      path: /employees
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8090/eureka/
+    register-with-eureka: false
+
 
 logging:
   level:
