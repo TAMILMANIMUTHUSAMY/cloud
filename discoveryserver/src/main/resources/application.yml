@@ -1,0 +1,19 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: DISCOVERYSERVER
+
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+
+  instance:
+    hostname: localhost
+    #lease-renewal-interval-in-seconds: 1
+    #lease-expiration-duration-in-seconds: 1
+
+#  server:
+#    renewal-threshold-update-interval-ms: 1000

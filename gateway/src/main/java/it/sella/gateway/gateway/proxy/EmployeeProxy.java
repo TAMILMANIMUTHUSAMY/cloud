@@ -1,6 +1,7 @@
 package it.sella.gateway.gateway.proxy;
 
 import it.sella.gateway.gateway.proxy.model.Employee;
+import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 //@FeignClient(name = "EMPLOYEE", path = "/employees", url = "http://localhost:8040")
 @FeignClient(name = "EMPLOYEE")
+//@RibbonClient(name = "EMPLOYEE")
 public interface EmployeeProxy {
 
     //@GetMapping

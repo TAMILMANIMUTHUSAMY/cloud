@@ -17,6 +17,13 @@ management:
 #    employees:
 #      url: http://localhost:8040/employees
 
+#ribbon:
+#  eureka:
+#    enabled: false
+#employees:
+#  ribbon:
+#    listOfServers: http://localhost:8040/employees
+
 zuul:
   routes:
     employees:
@@ -25,7 +32,6 @@ zuul:
 
 eureka:
   client:
-    `
     service-url:
       defaultZone: http://localhost:8090/eureka/
     register-with-eureka: false
