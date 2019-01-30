@@ -35,6 +35,7 @@ eureka:
     service-url:
       defaultZone: http://localhost:8090/eureka/
     register-with-eureka: false
+    registry-fetch-interval-seconds: 5
 
 
 logging:

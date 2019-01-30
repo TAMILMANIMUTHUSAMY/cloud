@@ -1,0 +1,34 @@
+application based
+---------------------------
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: file://D:/IntelliJProject/Git/springCloudConfigserver/git-localconfig-repo
+          repos:
+              limits-service:
+                pattern: limits-service*/test*
+                uri: file://D:/IntelliJProject/Git/springCloudConfigserver/multiple-repo-1
+              message-service:
+                pattern: message-service*
+                uri: file://D:/IntelliJProject/Git/springCloudConfigserver/multiple-repo-2              
+              
+profile based
+---------------------------
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: file://D:/IntelliJProject/Git/springCloudConfigserver/git-localconfig-repo
+          repos:
+            dev:
+              pattern:
+                - '*/dev'
+               uri: file://D:/IntelliJProject/Git/springCloudConfigserver/multiple-repo-2
+            test:
+              pattern:
+                - '*/test'
+                uri: file://D:/IntelliJProject/Git/springCloudConfigserver/multiple-repo-1
