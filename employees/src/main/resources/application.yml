@@ -3,6 +3,11 @@ spring:
     name: EMPLOYEE
   zipkin:
     base-url: http://localhost:9411/
+#    locator:
+#      discovery:
+#        enabled: true
+#    service:
+#      name: zipkinserver
   sleuth:
     sampler:
       probability: 1
