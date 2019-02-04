@@ -45,6 +45,18 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 			<version>LATEST</version>
 		</dependency>
+        <!-- Sends trace data to zipkin over messaging -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-zipkin</artifactId>
+			<version>LATEST</version>
+		</dependency>
+        <!-- Use rabbit to send traces to Zipkin -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+            <version>LATEST</version>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

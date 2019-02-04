@@ -1,0 +1,104 @@
+Setup Zipkin:
+--------------
+Download and install Erlang;
+----------------------------
+	latest version 21.2
+		- https://www.erlang.org/
+		- Erlang is a programming language used to build massively scalable soft real-time systems with requirements on high availability
+		- Some of its uses are in telecoms, banking, e-commerce, computer telephony and instant messaging. 
+		- Erlang's runtime system has built-in support for concurrency, distribution and fault tolerance
+	
+
+		- OTP is set of Erlang libraries and design principles providing middle-ware to develop these systems. 
+		- It includes its own distributed database, applications to interface towards other languages, debugging and release handling tools.
+		
+Download and install RabbitMQ;
+------------------------------
+	latest version 3.7.11
+		- https://www.rabbitmq.com/
+		- RabbitMQ is the most popular open source message broker(sometimes called message-oriented middleware) that implements the Advanced Message Queuing Protocol (AMQP).
+		- The RabbitMQ server is written in the Erlang programming language and is built on the Open Telecom Platform framework for clustering and failover.
+		- RabbitMQ is lightweight and easy to deploy on premises and in the cloud.
+		- It supports multiple messaging protocols. 
+		- RabbitMQ can be deployed in distributed and federated configurations to meet high-scale, high-availability requirements.
+		
+	Features;
+	------
+		- Asynchronous Messaging, Supports multiple messaging protocols, message queuing, delivery acknowledgement, flexible routing to queues, multiple exchange type.
+		- Develop cross-language messaging with favorite programming languages such as: Java, .NET, PHP, Python, JavaScript, Ruby, Go, and many others.
+		- Distributed Deployment, Deploy as clusters for high availability and throughput; federate across multiple availability zones and regions.
+		- Enterprise & Cloud Ready, Enterprise & Cloud Ready Pluggable authentication, authorization, supports TLS and LDAP. Lightweight and easy to deploy in 	public and private clouds.
+		- Tools & Plugins, Diverse array of tools and plugins supporting continuous integration, operational metrics, and integration to other enterprise systems. Flexible plug-in approach for extending RabbitMQ functionality.
+		- Management & Monitoring, HTTP-API, command line tool, and UI for managing and monitoring RabbitMQ.
+	
+	After installation
+	--------
+		- By default RabbitMQ UI is disabled, to enable the UI, open cmd and fire
+			>C:\Program Files\RabbitMQ Server\rabbitmq_server-3.7.8\sbin>rabbitmq-plugins.bat enable rabbitmq_management
+			>C:\Program Files\RabbitMQ Server\rabbitmq_server-3.7.8\sbin>rabbitmq-server.bat restart
+			
+				C:\Users\TAMILM~1\AppData\Roaming\RabbitMQ\advanced.config
+				a entry is made after executing above command.
+				[rabbitmq_management].
+			
+		- if any error
+			>C:\Program Files\RabbitMQ Server\rabbitmq_server-3.7.8\sbin>rabbitmq-service.bat remove
+			>C:\Program Files\RabbitMQ Server\rabbitmq_server-3.7.8\sbin>rabbitmq-service.bat install
+		
+			Using RABBITMQ_ADVANCED_CONFIG_FILE: C:\Users\TAMILM~1\AppData\Roaming\RabbitMQ\advanced.config
+			
+	Default port of RabbitMQ is : http://localhost:15672/#/ and login with guest / geust
+	
+
+Download and start zipkin server;
+-----------------------------------
+		- https://zipkin.io/
+		- Latest version zipkin-server-2.12.0-exec.jar
+		- Zipkin is a distributed tracing system. 
+		- It helps gather timing data needed to troubleshoot latency problems in microservice architectures. 
+		- It manages both the collection and lookup of this data. Zipkin’s design is based on the Google Dapperpaper
+		
+		- java -jar zipkin.jar
+		- java -DRABBIT_ADDRESSES=localhost -jar zipkin.jar - to enable Zipkin to consume RMQ.
+		- BY default zipkin launch on http://localhost:9411
+		
+	To enable live trace, 
+		- add below dependemcy in your pom.xml
+			<!-- Sends trace data to zipkin over messaging -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-zipkin</artifactId>
+				<version>LATEST</version>
+			</dependency>
+			<!-- Use rabbit to send traces to Zipkin -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-starter-bus-amqp</artifactId>
+				<version>LATEST</version>
+			</dependency>
+		- aftifact zipkin will add artifact sleuth automatically in dependency path. but not vice versa.
+		
+		- add below entry in application.properties
+			spring.zipkin.base-url=http://localhost:9411/
+			spring.sleuth.sampler.probability=1
+=========================================================================
+
+Configuration properties;
+--------------------------
+spring.zipkin.locator.discovery.enabled = false <enabling of locating host name via service discovery>
+spring.sleuth.enabled = true
+spring.zipkin.enabled = true
+spring.cloud.client.ipAddress
+spring.sleuth.opentracing.enabled
+spring.zipkin.rabbitmq.queue:zipkin
+@ConditionalOnMissingBean(
+    name = {"zipkinSender"}
+)
+@Conditional({ZipkinSenderCondition.class})
+class ZipkinRabbitSenderConfiguration
+
+spring.zipkin.sender.type = KAFKA, RABBIT, WEB
+spring.zipkin.kafka.topic:zipkin
+spring.zipkin.discoveryClientEnabled=true
+
+
